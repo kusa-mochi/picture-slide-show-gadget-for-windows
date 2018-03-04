@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace PictureSlideShowGadget.Views
 {
@@ -10,6 +11,13 @@ namespace PictureSlideShowGadget.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState != MouseButtonState.Pressed) return;
+
+            this.DragMove();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace PictureSlideShowGadget.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        private SettingManager _settingManager = null;
         private FileManager _fileManager = null;
         private string _title = "Picture Slide Show Gadget for Windows";
 
@@ -20,16 +21,18 @@ namespace PictureSlideShowGadget.ViewModels
 
         public MainWindowViewModel()
         {
-            _fileManager = new FileManager(@"C:\Users\R\Desktop\新しいフォルダー");
+            _settingManager = new SettingManager();
+            _fileManager = new FileManager(_settingManager.Settings.DirectoryPath);
             DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.Background);
-            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Interval = new TimeSpan((long)_settingManager.Settings.IntervalSeconds * 1000 * 1000 * 10);
             timer.Tick += new EventHandler(UpdateImage);
+            ImageData = _fileManager.GetImageFile();
             timer.Start();
         }
 
         private void UpdateImage(object sender, EventArgs e)
         {
-            ImageData = new BitmapImage(new System.Uri(_fileManager.GetImageFilePath()));
+            ImageData = _fileManager.GetImageFile();
         }
 
         private BitmapImage _ImageData;
