@@ -4,7 +4,7 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:ViewModels="clr-namespace:PictureSlideShowGadget.ViewModels" x:Class="PictureSlideShowGadget.Views.MainWindow"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" Background="Black" Width="400" Height="300" BorderBrush="#FF585858" BorderThickness="1"
+        Title="{Binding Title}" AllowsTransparency="True" WindowStyle="None" ResizeMode="CanResizeWithGrip" Background="Black" Width="400" Height="300" BorderBrush="#FF585858" BorderThickness="1"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Effect>
         <DropShadowEffect/>
