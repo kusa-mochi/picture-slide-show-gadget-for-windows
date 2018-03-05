@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
+using PictureSlideShowGadget.ViewModels;
+
 namespace PictureSlideShowGadget.Views
 {
     /// <summary>
@@ -12,8 +14,12 @@ namespace PictureSlideShowGadget.Views
         {
             InitializeComponent();
 
+            this.DataContext = new MainWindowViewModel();
+
             this.Left = Properties.Settings.Default.WindowPositionX;
             this.Top = Properties.Settings.Default.WindowPositionY;
+            this.Width = Properties.Settings.Default.WindowWidth;
+            this.Height = Properties.Settings.Default.WindowHeight;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -29,6 +35,8 @@ namespace PictureSlideShowGadget.Views
             {
                 Properties.Settings.Default.WindowPositionX = this.Left;
                 Properties.Settings.Default.WindowPositionY = this.Top;
+                Properties.Settings.Default.WindowWidth = this.Width;
+                Properties.Settings.Default.WindowHeight = this.Height;
                 Properties.Settings.Default.Save();
             }
         }
