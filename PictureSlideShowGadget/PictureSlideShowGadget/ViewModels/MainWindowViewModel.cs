@@ -28,6 +28,16 @@ namespace PictureSlideShowGadget.ViewModels
             set { SetProperty(ref _ImageData, value); }
         }
 
+        private BitmapImage _FadeImage;
+        public BitmapImage FadeImage
+        {
+            get { return _FadeImage; }
+            set
+            {
+                SetProperty(ref _FadeImage, value);
+            }
+        }
+
         private bool _Exit = false;
         public bool Exit
         {
@@ -40,44 +50,18 @@ namespace PictureSlideShowGadget.ViewModels
             _settingManager = new SettingManager();
             _fileManager = new FileManager(_settingManager.Settings.DirectoryPath);
 
-            //// if there is no directory setting data,
-            //if ((Properties.Settings.Default.DirectoryPath == "nodata") ||
-            //    string.IsNullOrEmpty(Properties.Settings.Default.DirectoryPath) ||
-            //    string.IsNullOrWhiteSpace(Properties.Settings.Default.DirectoryPath))
-            //{
-            //    // open Settings Dialog
-            //    var dialog = new SettingWindow();
-            //    dialog.ShowDialog();
-
-
-            //    //var dialog = new FolderBrowserDialog();
-            //    //dialog.Description = "Select a folder to load pictures.";
-
-            //    //var result = dialog.ShowDialog();
-
-            //    //if (result == DialogResult.OK)
-            //    //{
-            //    //    Properties.Settings.Default.DirectoryPath = dialog.SelectedPath;
-            //    //}
-            //    //else if(result == DialogResult.Cancel)
-            //    //{
-            //    //    Exit = true;
-            //    //    return;
-            //    //}
-            //}
-
-            //_fileManager = new FileManager(Properties.Settings.Default.DirectoryPath);
-
-            DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.Background);
-            timer.Interval = new TimeSpan((long)Properties.Settings.Default.IntervalSec * 1000 * 1000 * 10);
-            timer.Tick += new EventHandler(UpdateImage);
             ImageData = _fileManager.GetImageFile();
-            timer.Start();
+            _FadeImage = ImageData.Clone();
         }
 
-        private void UpdateImage(object sender, EventArgs e)
+        public void UpdateFadeImage()
         {
-            ImageData = _fileManager.GetImageFile();
+            FadeImage = _fileManager.GetImageFile();
+        }
+
+        public void UpdateImageData()
+        {
+            ImageData = FadeImage.Clone();
         }
     }
 }

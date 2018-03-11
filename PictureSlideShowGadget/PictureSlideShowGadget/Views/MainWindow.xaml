@@ -14,7 +14,14 @@
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
+    <Window.Resources>
+        <Storyboard x:Key="ImageFadeAnimation">
+            <DoubleAnimation Storyboard.TargetName="FadeLayer" Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0" Duration="0:0:1"/>
+        </Storyboard>
+    </Window.Resources>
     <Grid>
-        <Image Source="{Binding ImageData}"/>
+        <Image x:Name="image" Source="{Binding ImageData}"/>
+        <Image x:Name="FadeLayer" Source="{Binding FadeImage}" Opacity="0"/>
     </Grid>
 </Window>
